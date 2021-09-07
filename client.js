@@ -62,16 +62,17 @@ function addNewEmployee(){
   for (const salary of salaries)
     salariesSum+= Number(salary);
 
-  //convert salary sum to dollar format
-  salariesSum = (salariesSum).toLocaleString('en-US', {
+  let salariesMonthly = salariesSum/12;
+  //convert salary sum to dollar format, stored in new var so we also keep salariesMonthly as a plain number to use later
+  let salariesMonthlyDisplay = (salariesMonthly).toLocaleString('en-US', {
       style: 'currency',
       currency: 'USD', });
 
-  $('#total-salaries').html('Total Monthly: ' + salariesSum);
+  $('#total-salaries').html('Total Monthly: ' + salariesMonthlyDisplay);
 
   //If the total monthly cost exceeds $20,000, add a red background color to the total monthly cost.
-  if (salariesSum > 20000)
-  $('#total-salaries').css('background-color', 'red');
+  if (salariesMonthly > 20000)
+    $('#total-salaries').css('background-color', 'red');
 }
 
 function displayInputValueInOutput(inputField, outputArea) {
