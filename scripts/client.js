@@ -1,7 +1,11 @@
 $( document ).ready( onReady );
 
+let originalBGforTotalDisplay; //I don't like that this is global, but couldn't think of an alternative for now
+
 function onReady(){
   $( '#submit-button' ).on( 'click', addNewEmployee );
+
+  originalBGforTotalDisplay = $('#total-salaries').css('background-color');
 } 
 
 function addNewEmployee(){
@@ -88,8 +92,8 @@ function displayMonthlyTotalSalary(){
 
   if (salariesMonthly > 20000)  //If the total monthly cost exceeds $20,000, add a red background color to the total monthly cost.
     $('#total-salaries').css('background-color', 'rgb(177, 65, 71)');
-  else //need to add an else for when the too-expensive people get deleted: change it back!
-    $('#total-salaries').css('background-color', 'white'); //todo - better to first store the original BG color, and set this to that here, in case it isn't white.
+  else //for when the too-expensive people get deleted: change it back to not-red
+    $('#total-salaries').css('background-color', originalBGforTotalDisplay);
 }
 
 function deleteEmployee(id){  

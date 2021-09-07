@@ -2,10 +2,18 @@
    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 } 
 
+body {
+  margin-left: auto;
+  margin-right: auto;
+  width: 800px;
+}
+
 h1, h2 {
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 h1 {
+  padding: 20px;
+  background-color: rgb(136, 203, 207);
   text-align: center;
 }
 
@@ -30,6 +38,14 @@ input:focus{
   border: 2px solid rgb(136, 203, 207);
 }
 
+.input-narrow {
+  width: 100px;
+}
+
+.input-set {
+  width: 168px;
+}
+
 
 .employees-container {
   display: grid;
@@ -42,12 +58,8 @@ input:focus{
   align-items: center; */
   grid-template-areas:
     ". . . . . .";
-  width: 100%;
+  width: auto;
   height: 100%;
-}
-
-.employees-container {
-
 }
 
 .grid-child {
@@ -87,9 +99,9 @@ if you had another grid with for example 8 columns, you would need to paste the 
 .employee-data {
   background-color: rgb(222, 236, 240);
 }
+
 #total-salaries {
-  float:right;
-  margin: 20px 88px 0 0;
+  text-align: right;
   padding: 10px;
 }
 
