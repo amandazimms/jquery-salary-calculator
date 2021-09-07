@@ -15,11 +15,35 @@ function onReady(){
 function submit() {
   console.log('submit');
   
-  displayInputValueInOutput('#employee-first-name', '#first-name-output');
-  displayInputValueInOutput('#employee-last-name', '#last-name-output');
-  displayInputValueInOutput('#employee-id', '#id-output');
-  displayInputValueInOutput('#employee-title', '#job-title-output');
-  displayInputValueInOutput('#employee-salary', '#salary-output');
+  displayNewEmployee();
+
+  // displayInputValueInOutput('#employee-first-name', '#first-name-output');
+  // displayInputValueInOutput('#employee-last-name', '#last-name-output');
+  // displayInputValueInOutput('#employee-id', '#id-output');
+  // displayInputValueInOutput('#employee-title', '#job-title-output');
+  // displayInputValueInOutput('#employee-salary', '#salary-output');
+
+}
+
+function displayNewEmployee(){
+  //create another row
+  let firstName = $('#employee-first-name').val();
+  let lastName = $('#employee-last-name').val();
+  let id = $('#employee-id').val();
+  let title = $('#employee-title').val();
+  let salary = $('#employee-salary').val();
+
+  let newRow = `
+  <div class="employee-data"><p id="first-name-output">${firstName}</p></div>
+  <div class="employee-data"><p id="last-name-output">${lastName}</p></div>
+  <div class="employee-data"><p id="id-output">${id}</p></div>
+  <div class="employee-data"><p id="job-title-output">${title}</p></div>
+  <div class="employee-data"><p id="salary-output">${salary}</p></div>
+  <div class="employee-data"><button id="delete-button">delete</button></div>
+    `
+  $('.employees-container').append(newRow);
+
+  //fill the values with the right data
 
 }
 
