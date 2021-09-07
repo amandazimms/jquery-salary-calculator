@@ -8,9 +8,7 @@ function onReady(){
 
 let salaries = [];
 
-// A 'Submit' button should collect the form information, store the information to calculate monthly costs, append information
-// // to the DOM and clear the input fields. Using the stored information, calculate monthly costs and append this to the to DOM.
-// // If the total monthly cost exceeds $20,000, add a red background color to the total monthly cost.
+
 
 
 function submit() {
@@ -34,12 +32,17 @@ function addNewEmployee(){
   let title = $('#employee-title').val();
   let salary = $('#employee-salary').val();
 
+  //convert salary to dollar format, stored in new var so we also keep salary as a plain number to use later
+  let salaryDisplay = (Number(salary)).toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD', });
+
   let newRow = `
   <div class="employee-data"><p id="first-name-output">${firstName}</p></div>
   <div class="employee-data"><p id="last-name-output">${lastName}</p></div>
   <div class="employee-data"><p id="id-output">${id}</p></div>
   <div class="employee-data"><p id="job-title-output">${title}</p></div>
-  <div class="employee-data"><p id="salary-output">${salary}</p></div>
+  <div class="employee-data"><p id="salary-output">${salaryDisplay}</p></div>
   <div class="employee-data"><button id="delete-button">delete</button></div>
     `
   $('.employees-container').append(newRow);
@@ -59,10 +62,16 @@ function addNewEmployee(){
   for (const salary of salaries)
     salariesSum+= Number(salary);
 
+  //convert salary sum to dollar format
+  salariesSum = (salariesSum).toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD', });
 
-  let totalDisplay = $('#total-salaries');
+  $('#total-salaries').html('Total Monthly: ' + salariesSum);
 
-  $(totalDisplay).html('Total Monthly: ' + salariesSum);
+  //If the total monthly cost exceeds $20,000, add a red background color to the total monthly cost.
+  if (salariesSum > 20000)
+  $('#total-salaries').css('background-color', 'red');
 }
 
 function displayInputValueInOutput(inputField, outputArea) {
