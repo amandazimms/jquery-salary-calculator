@@ -1,4 +1,9 @@
 console.log("js");
+$( document ).ready( onReady );
+
+function onReady(){
+  console.log( `JQ` ); 
+} // end onReady
 // <!-- ## Assignment
 
 
@@ -10,7 +15,26 @@ console.log("js");
 // //salary from the reported total. -->
 
 
+// let firstName = 
+
+// <label for="employee-first-name">First Name:</label><br>
+// <input type="text" id="employee-first-name"><br>
+// <p></p>
+
+// <label for="employee-last-name">Last Name:</label><br>
+// <input type="text" id="employee-last-name"><br>
+
+// <label for="employee-id">Employee ID:</label><br>
+// <input type="number" id="employee-id"><br>
+
+// <label for="employee-title">Job Title:</label><br>
+// <input type="text" id="employee-title"><br>
+
+// <label for="employee-id">Annual Salary:</label><br>
+// <input type="number" id="employee-salary"><br>
+
+// <!-- todo change label to more appropriate thing -->
+// <input type="submit" value="GO!">
 
 
-
-//todo update readme
+// //todo update readme
