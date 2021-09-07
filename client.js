@@ -10,8 +10,7 @@ function onReady(){
 function addNewEmployee(){
   let firstName = $('#employee-first-name').val();
   let lastName = $('#employee-last-name').val();
-  //employee ID will also be used as the class for each div. Meta!
-  let id = $('#employee-id').val().toString();
+  let id = $('#employee-id').val().toString(); //note: employee ID will also be used as the class for each div (for this employee). Meta!
   let title = $('#employee-title').val();
   let salary = $('#employee-salary').val();
 
@@ -20,32 +19,50 @@ function addNewEmployee(){
     style: 'currency',
     currency: 'USD', });
 
-  //todo : more readable and easier to store the whole new row in its own div, and tag that with 'id'
-  //then when deleting, can just remove that parent div. But I was finding this more difficult 
-  //to do without messing up the css grid. 
-  let newRow = `
-    <div class=${id}><p>${firstName}</p></div>
-    <div class=${id}><p>${lastName}</p></div>
-    <div class=${id}><p>${id}</p></div>
-    <div class=${id}><p>${title}</p></div>
-    <div class="${id} salary"><p>${salaryDisplay}</p></div>
-    <div class=${id}><button onclick="deleteEmployee(${id})">delete</button></div>
-    `;
+  if (idChecker(id)) {
+    //todo : may be more readable and easier to store the whole new row in its own parent div, and tag that with class 'id'
+    //then when deleting, can just remove that parent div. But I was finding this more difficult to do without messing up the css grid. 
+    let newRow = `
+      <div class=${id}><p>${firstName}</p></div>
+      <div class=${id}><p>${lastName}</p></div>
+      <div class="${id} employee-id"><p>${id}</p></div>
+      <div class=${id}><p>${title}</p></div>
+      <div class="${id} salary"><p>${salaryDisplay}</p></div> 
+      <div class=${id}><button onclick="deleteEmployee(${id})">delete</button></div>
+      `;
 
-  $('.employees-container').append(newRow);
+    $('.employees-container').append(newRow);
 
-  //todo disallow two employees with same ID
-  //todo disallow employee ID beginning with zero
+    //for each element with the 'employee-input' class (all of the input fields)
+    $('.employee-input').each(function(){
+      $(this).val(''); //clear the field
+    });
 
-  //clear values
-  $('#employee-first-name').val('');
-  $('#employee-last-name').val('');
-  $('#employee-id').val('');
-  $('#employee-title').val('');
-  $('#employee-salary').val('');
-
-  displayMonthlyTotalSalary();
+    displayMonthlyTotalSalary();
+  } 
+  else { //if idChecker came back false 
+    alert("Invalid Employee ID: make sure employee ID does NOT begin with zero, and is unique to this employee");
+  }
 }
+
+function idChecker(id){
+  //make an array of all employee IDs, so we can check for duplicates
+  let employeeIDs = [];
+
+  //for each element with the 'employee-id' class (all of the employees IDs)
+  $('.employee-id').each(function(){
+    //push 'this' (each of those elements) 's text value into the IDs array
+    employeeIDs.push( $(this).text());
+  });
+  
+  //if id begins with zero, or id is already present in the array of (other) employee IDs
+  if (id.toString()[0] === "0" || employeeIDs.includes(id) ) {
+    return false;
+  }
+  else
+    return true;
+}
+
 
 function displayMonthlyTotalSalary(){
   //todo not sure if updating the entire salaries array this often may be an issue with performance in a real scenario;
@@ -53,16 +70,14 @@ function displayMonthlyTotalSalary(){
   let salaries = [];
   let salariesSum = 0;
 
-  //for each element with the 'salary' class
+  //for each element with the 'salary' class (all of the employees salaries)
   $('.salary').each(function(){
     //since we previously converted salary to a nice currency number for display, now need to convert it back to a plain number
     let salaryAsNumber = Number($(this).text().replace(/[^0-9.-]+/g,""));
 
     //push 'this' (each of those elements) 's text value into the salaries array
-    console.log('this sal val', salaryAsNumber);
     salaries.push( salaryAsNumber);
     salariesSum+= salaryAsNumber;
-    console.log('salaries sum', salariesSum);
   });
 
   let salariesMonthly = salariesSum/12;
@@ -106,8 +121,6 @@ function displayInputValueInOutput(inputField, outputArea) {
   $(inputField).val('');
 }
 
-// Create a delete button that removes an employee from the DOM. For Base mode, it does **not** need to remove that Employee's 
-// //salary from the reported total. -->
 
 
 
