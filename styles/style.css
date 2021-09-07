@@ -2,20 +2,35 @@
    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 } 
 
+h1, h2 {
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
 h1 {
   text-align: center;
 }
 
 button {
+  padding: 10px;
   margin: 10px 0 10px 0;
-  border-radius: 5px;
+  border-radius: 0px;
+  border: none;
   text-transform: uppercase;
   font-weight: bold;
+  background-color: rgb(136, 203, 207);
 }
 
 input {
-  border-radius: 5px;
+  border: 2px solid white;
+  background-color: rgb(242, 246, 247);
+  padding: 10px;
 }
+
+input:focus{
+  outline: none;
+  border: 2px solid rgb(136, 203, 207);
+}
+
+
 .employees-container {
   display: grid;
   grid-template-columns: 1fr 1fr 80px 1fr 1fr 80px;
@@ -40,15 +55,41 @@ input {
   text-align: center;
 }
 
+
+
+
+/* Nth CHILD STUFF! I'm so proud I got this working!!!
+
+this consideres all the child divs of the given parent (.employees-conttainer), 
+and does styling only to the ones you specify. I wanted to skip the first row, 
+cells 1-6, because they are titles and have their own style. Then it applies background color to the next row, 
+cells 7-12, and skips the next row, 
+cells 13-18 (they remain styled by plain old .employee-data below).
+The skippage is accomplished by the '12n' piece of this, 12 standing for two rows of 6.
+The math is gelatinous in my brain but with guess-and-check I can see how it affects each thing.
+
+if you had another grid with for example 8 columns, you would need to paste the 'div:nth-child' stuff 8 times.
+*/
+.employees-container > div:nth-child(12n + 7), 
+.employees-container > div:nth-child(12n + 8), 
+.employees-container > div:nth-child(12n + 9), 
+.employees-container > div:nth-child(12n + 10), 
+.employees-container > div:nth-child(12n + 11), 
+.employees-container > div:nth-child(12n + 12) { 
+  background-color: rgb(242, 246, 247);
+}
+
+
 .employee-title {
-  background-color: rgb(155, 218, 223);
+  background-color: rgb(136, 203, 207);
 }
 
 .employee-data {
-  background-color:rgb(213, 235, 236)
+  background-color: rgb(222, 236, 240);
 }
 #total-salaries {
-  text-align: right;
-  margin: 20px 120px 0 0;
+  float:right;
+  margin: 20px 88px 0 0;
+  padding: 10px;
 }
 

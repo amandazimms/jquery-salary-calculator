@@ -54,15 +54,14 @@ function idChecker(id){
   console.log(id.toString());
   console.log(id.toString().length);
 
-  //if id begins with zero, or id is already present in the array of (other) employee IDs, or has a length of 0
-  if ( id.toString()[0] === "0" ) {
+  if ( id.toString()[0] === "0" ) { //if ID begins with zero
     alert("Invalid Employee ID: please make sure ID does not begin with zero.");
     return false;
-  } else if ( employeeIDs.includes(id) ) {
+  } else if ( employeeIDs.includes(id) ) { //if ID matches another employee's ID
     alert("Invalid Employee ID: please make sure ID is unique to this employee");
     return false;
-  } else if ( id.toString().length === 0) {
-    alert("Please enter an Employee ID");
+  } else if ( !Number(id) || id.toString().length === 0) { //if it's fails this, it's NaN (contains letters), or isn't entered (these two have overlap, so were combined)
+    alert("Invalid Employee ID: please make sure you entered an ID, and that it only contains numbers.")
     return false;
   } else
     return true;
@@ -94,7 +93,7 @@ function displayMonthlyTotalSalary(){
   $('#total-salaries').html('Total Monthly: ' + salariesMonthlyDisplay); //display on DOM
 
   if (salariesMonthly > 20000)  //If the total monthly cost exceeds $20,000, add a red background color to the total monthly cost.
-    $('#total-salaries').css('background-color', 'red');
+    $('#total-salaries').css('background-color', 'rgb(177, 65, 71)');
   else //need to add an else for when the too-expensive people get deleted: change it back!
     $('#total-salaries').css('background-color', 'white'); //todo - better to first store the original BG color, and set this to that here, in case it isn't white.
 }
