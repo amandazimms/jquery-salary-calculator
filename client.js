@@ -8,9 +8,6 @@ function onReady(){
 
 let salaries = [];
 
-
-
-
 function submit() {
   console.log('submit');
   
@@ -25,10 +22,10 @@ function submit() {
 }
 
 function addNewEmployee(){
-  //create another row
   let firstName = $('#employee-first-name').val();
   let lastName = $('#employee-last-name').val();
-  let id = $('#employee-id').val();
+  //employee ID will also be used as the class for each div. Meta!
+  let id = $('#employee-id').val().toString();
   let title = $('#employee-title').val();
   let salary = $('#employee-salary').val();
 
@@ -37,16 +34,29 @@ function addNewEmployee(){
     style: 'currency',
     currency: 'USD', });
 
+  //todo : more readable and easier to store the whole new row in its own div, and tag that with 'id'
+  //then when deleting, can just remove that parent div. But I was finding this more difficult 
+  //to do without messing up the css grid. 
   let newRow = `
-  <div class="employee-data"><p id="first-name-output">${firstName}</p></div>
-  <div class="employee-data"><p id="last-name-output">${lastName}</p></div>
-  <div class="employee-data"><p id="id-output">${id}</p></div>
-  <div class="employee-data"><p id="job-title-output">${title}</p></div>
-  <div class="employee-data"><p id="salary-output">${salaryDisplay}</p></div>
-  <div class="employee-data"><button id="delete-button">delete</button></div>
-    `
+    <div class=${id}><p>${firstName}</p></div>
+    <div class=${id}><p>${lastName}</p></div>
+    <div class=${id}><p>${id}</p></div>
+    <div class=${id}><p>${title}</p></div>
+    <div class=${id}><p>${salaryDisplay}</p></div>
+    <div class=${id}><button onclick="deleteEmployee(${id})">delete</button></div>
+    `;
+
+
+
   $('.employees-container').append(newRow);
 
+  //todo disallow two employees with same ID
+  //todo disallow employee ID beginning with zero
+
+  
+  //todo remove region tags
+  //#region stuff thats in my way
+  //clear values
   $('#employee-first-name').val('');
   $('#employee-last-name').val('');
   $('#employee-id').val('');
@@ -73,6 +83,12 @@ function addNewEmployee(){
   //If the total monthly cost exceeds $20,000, add a red background color to the total monthly cost.
   if (salariesMonthly > 20000)
     $('#total-salaries').css('background-color', 'red');
+  //#endregion
+}
+
+function deleteEmployee(id){
+  console.log('delete', id);
+  $('.'+id).remove();
 }
 
 function displayInputValueInOutput(inputField, outputArea) {

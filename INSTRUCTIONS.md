@@ -33,6 +33,7 @@ Above, we introduced the concept of levels of difficulty. "Mode" is how we will 
 * what to expect when attempting each mode
 * if they are required or not
 
+
 Mode | Description
  --- | ---
 Base | required
