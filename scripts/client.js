@@ -1,9 +1,7 @@
-console.log("js");
 $( document ).ready( onReady );
 
 function onReady(){
   $( '#submit-button' ).on( 'click', addNewEmployee );
-  console.log('jq');
 } 
 
 function addNewEmployee(){
@@ -49,10 +47,6 @@ function idChecker(id){
   $('.employee-id').each(function(){
     employeeIDs.push( $(this).text()); //push 'this' (each of those elements) 's text value into the IDs array
   });
-  
-  console.log(id);
-  console.log(id.toString());
-  console.log(id.toString().length);
 
   if ( id.toString()[0] === "0" ) { //if ID begins with zero
     alert("Invalid Employee ID: please make sure ID does not begin with zero.");
