@@ -2,24 +2,10 @@ console.log("js");
 $( document ).ready( onReady );
 
 function onReady(){
-  $( '#submit-button' ).on( 'click', submit );
+  $( '#submit-button' ).on( 'click', addNewEmployee );
   console.log('jq');
 } 
 
-let salaries = [];
-
-function submit() {
-  console.log('submit');
-  
-  addNewEmployee();
-
-  // displayInputValueInOutput('#employee-first-name', '#first-name-output');
-  // displayInputValueInOutput('#employee-last-name', '#last-name-output');
-  // displayInputValueInOutput('#employee-id', '#id-output');
-  // displayInputValueInOutput('#employee-title', '#job-title-output');
-  // displayInputValueInOutput('#employee-salary', '#salary-output');
-
-}
 
 function addNewEmployee(){
   let firstName = $('#employee-first-name').val();
@@ -42,20 +28,15 @@ function addNewEmployee(){
     <div class=${id}><p>${lastName}</p></div>
     <div class=${id}><p>${id}</p></div>
     <div class=${id}><p>${title}</p></div>
-    <div class=${id}><p>${salaryDisplay}</p></div>
+    <div class="${id} salary"><p>${salaryDisplay}</p></div>
     <div class=${id}><button onclick="deleteEmployee(${id})">delete</button></div>
     `;
-
-
 
   $('.employees-container').append(newRow);
 
   //todo disallow two employees with same ID
   //todo disallow employee ID beginning with zero
 
-  
-  //todo remove region tags
-  //#region stuff thats in my way
   //clear values
   $('#employee-first-name').val('');
   $('#employee-last-name').val('');
@@ -63,34 +44,60 @@ function addNewEmployee(){
   $('#employee-title').val('');
   $('#employee-salary').val('');
 
+  displayMonthlyTotalSalary();
+}
 
-  //todo separation of concerns - different function?
-  //store salary and display total
-  salaries.push(salary);
-
+function displayMonthlyTotalSalary(){
+  //todo not sure if updating the entire salaries array this often may be an issue with performance in a real scenario;
+  //in that case a global variable might be better
+  let salaries = [];
   let salariesSum = 0;
-  for (const salary of salaries)
-    salariesSum+= Number(salary);
+
+  //for each element with the 'salary' class
+  $('.salary').each(function(){
+    //since we previously converted salary to a nice currency number for display, now need to convert it back to a plain number
+    let salaryAsNumber = Number($(this).text().replace(/[^0-9.-]+/g,""));
+
+    //push 'this' (each of those elements) 's text value into the salaries array
+    console.log('this sal val', salaryAsNumber);
+    salaries.push( salaryAsNumber);
+    salariesSum+= salaryAsNumber;
+    console.log('salaries sum', salariesSum);
+  });
 
   let salariesMonthly = salariesSum/12;
+  console.log(salariesMonthly);
+
   //convert salary sum to dollar format, stored in new var so we also keep salariesMonthly as a plain number to use later
   let salariesMonthlyDisplay = (salariesMonthly).toLocaleString('en-US', {
       style: 'currency',
       currency: 'USD', });
+
+      console.log(salariesMonthly);
 
   $('#total-salaries').html('Total Monthly: ' + salariesMonthlyDisplay);
 
   //If the total monthly cost exceeds $20,000, add a red background color to the total monthly cost.
   if (salariesMonthly > 20000)
     $('#total-salaries').css('background-color', 'red');
-  //#endregion
+  else //need to add an else for when the too-expensive people get deleted: change it back!
+    $('#total-salaries').css('background-color', 'white'); //todo - better to first store the original BG color, and set this to that here, in case it isn't white.
+
 }
+
 
 function deleteEmployee(id){
-  console.log('delete', id);
+  //use . for class selector
+  let salaryToBeDeleted = $('.'+id+'.salary').text();
+  console.log('salary to be deleted' , salaryToBeDeleted);
+  
+  //use . for class selector
   $('.'+id).remove();
+  
+  displayMonthlyTotalSalary();
 }
 
+//todo this class not used
 function displayInputValueInOutput(inputField, outputArea) {
   //function that displays the value of an input field in an output area
 
