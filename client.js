@@ -2,8 +2,10 @@ console.log("js");
 $( document ).ready( onReady );
 
 function onReady(){
-  console.log( `JQ` ); 
-} // end onReady
+  $( '#submit-button' ).on( 'click', submit );
+  console.log('jq');
+} 
+
 // <!-- ## Assignment
 
 
@@ -11,30 +13,33 @@ function onReady(){
 // // to the DOM and clear the input fields. Using the stored information, calculate monthly costs and append this to the to DOM.
 // // If the total monthly cost exceeds $20,000, add a red background color to the total monthly cost.
 
+
+function submit() {
+  console.log('submit');
+  
+  displayInputValueInOutput('#employee-first-name', '#first-name-output');
+  displayInputValueInOutput('#employee-last-name', '#last-name-output');
+  displayInputValueInOutput('#employee-id', '#id-output');
+  displayInputValueInOutput('#employee-title', '#job-title-output');
+  displayInputValueInOutput('#employee-salary', '#salary-output');
+
+}
+
+function displayInputValueInOutput(inputField, _outputArea) {
+  let outputArea = $(_outputArea);
+  let inputValue = $(inputField).val();
+
+  outputArea.empty();
+  outputArea.append(inputValue);
+
+  $(inputField).val('');
+}
+
 // Create a delete button that removes an employee from the DOM. For Base mode, it does **not** need to remove that Employee's 
 // //salary from the reported total. -->
 
 
-// let firstName = 
-
-// <label for="employee-first-name">First Name:</label><br>
-// <input type="text" id="employee-first-name"><br>
-// <p></p>
-
-// <label for="employee-last-name">Last Name:</label><br>
-// <input type="text" id="employee-last-name"><br>
-
-// <label for="employee-id">Employee ID:</label><br>
-// <input type="number" id="employee-id"><br>
-
-// <label for="employee-title">Job Title:</label><br>
-// <input type="text" id="employee-title"><br>
-
-// <label for="employee-id">Annual Salary:</label><br>
-// <input type="number" id="employee-salary"><br>
-
-// <!-- todo change label to more appropriate thing -->
-// <input type="submit" value="GO!">
 
 
 // //todo update readme
+//todo put this in scripts folder, jQ in vendors folder, css in styles folder
