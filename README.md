@@ -1,10 +1,9 @@
 # Project Name
+Salary Calculator
 
-[Project Instructions](./INSTRUCTIONS.md), this line may be removed once you have updated the README.md
 
 ## Description
-
-Your project description goes here. What problem did you solve? How did you solve it?
+App that allows you to input employee information, including annual salary, into a CSS grid for display. As employees are added, monthly total cost is updated, and indicates in red when the maximum of $20k is reached. Employees can be removed with a delete button, and the total updates as expected.
 
 Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
 
@@ -18,19 +17,3 @@ Additional README details can be found [here](https://github.com/PrimeAcademy/re
 
 Add styling or extra functionality that fits with the theme of this assignment.
 
-Once the employee is deleted, update the _Total Monthly Cost_ section on the page to reflect the employee's removal. _HINT:_ You will need to figure out which employee was removed, in order to subtract their salary from the total. Consider using `.text()` as a getter, or look into jQuery's `.data()` function. This is tricky! 
-
-## Reminder About Modes
-
-Above, we introduced the concept of levels of difficulty. "Mode" is how we will typically refer to each level. Below is a brief explanation of
-
-* what to expect when attempting each mode
-* if they are required or not
-
-Mode | Description
---- | ---
-Base | required
-Stretch | optional, stretches your understanding and may require additional research
-
-## Assignment Submission
-Check in your repo, then turn in your work via the Prime Academy Assignment Application at [http://primeacademy.io](http://primeacademy.io), as usual and don't hesitate to hit up the Slack channel as needed!
