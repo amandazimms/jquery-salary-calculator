@@ -7,13 +7,3 @@ App that allows you to input employee information, including annual salary, into
 
 Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
 
-
-
----
-
-
-
-## Stretch Mode
-
-Add styling or extra functionality that fits with the theme of this assignment.
-

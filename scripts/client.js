@@ -16,19 +16,19 @@ function addNewEmployee(){
   //convert salary to dollar format, stored in new var so we also keep salary as a plain number to use later
   let salaryDisplay = (Number(salary)).toLocaleString('en-US', {
     style: 'currency',
-currency: 'USD', });
+    currency: 'USD', });
 
   if (idChecker(id)) { //run the following only if the idChecker comes back good
     
     //todo : may be more readable and easier to store the whole new row in its own parent div, and tag that with class 'id'
     //then when deleting, can just remove that parent div. But I was finding this more difficult to do without messing up the css grid. 
     let newRow = `
-      <div class=${id}><p>${firstName}</p></div>
-      <div class=${id}><p>${lastName}</p></div>
-      <div class="${id} employee-id"><p>${id}</p></div>
-      <div class=${id}><p>${title}</p></div>
-      <div class="${id} salary"><p>${salaryDisplay}</p></div> 
-      <div class=${id}><button onclick="deleteEmployee(${id})">delete</button></div>
+      <div class="${id} employee-data grid-child"><p>${firstName}</p></div>
+      <div class="${id} employee-data grid-child"><p>${lastName}</p></div>
+      <div class="${id} employee-data grid-child employee-id "><p>${id}</p></div>
+      <div class="${id} employee-data grid-child"><p>${title}</p></div>
+      <div class="${id} employee-data grid-child salary "><p>${salaryDisplay}</p></div> 
+      <div class="${id} employee-data grid-child"><button onclick="deleteEmployee(${id})">delete</button></div>
       `;
 
     $('.employees-container').append(newRow); //add the new row to the css grid container
@@ -40,10 +40,6 @@ currency: 'USD', });
     
     displayMonthlyTotalSalary(); //update total monthly salary, now that there's new data
   } 
-
-  else { //if idChecker came back false 
-    alert("Invalid Employee ID: make sure employee ID does NOT begin with zero, and is unique to this employee");
-  }
 }
 
 function idChecker(id){
@@ -54,11 +50,21 @@ function idChecker(id){
     employeeIDs.push( $(this).text()); //push 'this' (each of those elements) 's text value into the IDs array
   });
   
-  //if id begins with zero, or id is already present in the array of (other) employee IDs
-  if (id.toString()[0] === "0" || employeeIDs.includes(id) ) {
+  console.log(id);
+  console.log(id.toString());
+  console.log(id.toString().length);
+
+  //if id begins with zero, or id is already present in the array of (other) employee IDs, or has a length of 0
+  if ( id.toString()[0] === "0" ) {
+    alert("Invalid Employee ID: please make sure ID does not begin with zero.");
     return false;
-  }
-  else
+  } else if ( employeeIDs.includes(id) ) {
+    alert("Invalid Employee ID: please make sure ID is unique to this employee");
+    return false;
+  } else if ( id.toString().length === 0) {
+    alert("Please enter an Employee ID");
+    return false;
+  } else
     return true;
 }
 
@@ -85,8 +91,6 @@ function displayMonthlyTotalSalary(){
       style: 'currency',
       currency: 'USD', });
 
-      console.log(salariesMonthly);
-
   $('#total-salaries').html('Total Monthly: ' + salariesMonthlyDisplay); //display on DOM
 
   if (salariesMonthly > 20000)  //If the total monthly cost exceeds $20,000, add a red background color to the total monthly cost.
@@ -94,7 +98,6 @@ function displayMonthlyTotalSalary(){
   else //need to add an else for when the too-expensive people get deleted: change it back!
     $('#total-salaries').css('background-color', 'white'); //todo - better to first store the original BG color, and set this to that here, in case it isn't white.
 }
-
 
 function deleteEmployee(id){  
   //use . for class selector; for multiple classes, '.classA.classB'
@@ -104,4 +107,3 @@ function deleteEmployee(id){
   displayMonthlyTotalSalary();
 }
 
-//todo put this in scripts folder, jQ in vendors folder, css in styles folder
