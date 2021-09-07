@@ -13,28 +13,24 @@
   <!-- todo more specific title-->
   <p> Employee Info </p> 
 
-  <label for="employee-first-name">First Name:</label><br>
-    <input type="text" id="employee-first-name"><br>
-
-    <label for="employee-last-name">Last Name:</label><br>
-    <input type="text" id="employee-last-name"><br>
-
-    <label for="employee-id">Employee ID:</label><br>
-    <input type="number" id="employee-id"><br>
-
-    <label for="employee-title">Job Title:</label><br>
-    <input type="text" id="employee-title"><br>
-
-    <label for="employee-salary">Annual Salary:</label><br>
-    <input type="number" id="employee-salary"><br>
+    <input type="text" id="employee-first-name" placeholder="First Name">
+    <input type="text" id="employee-last-name" placeholder="Last Name">
+    <input type="number" id="employee-id" placeholder="Employee ID">
+    <input type="text" id="employee-title" placeholder="Job Title">
+    <input type="number" id="employee-salary" placeholder="Annual Salary">
 
     <!-- todo change label to more appropriate thing -->
     <button type="button" id="submit-button">GO!</button>
+    
+    
 
-    <p id="first-name-output">first name</p>
-    <p id="last-name-output">last name</p>
-    <p id="id-output">employee id</p>
-    <p id="job-title-output">job title</p>
-    <p id="salary-output">annual salary</p>
+    <div class="employees-container">
+      <div class="employee-data"><p id="first-name-output">first name</p></div>
+      <div class="employee-data"><p id="last-name-output">last name</p></div>
+      <div class="employee-data"><p id="id-output">employee id</p></div>
+      <div class="employee-data"><p id="job-title-output">job title</p></div>
+      <div class="employee-data"><p id="salary-output">annual salary</p></div>
+      <div class="employee-data"><button id="delete-button">delete</button></div>
+    </div>
 </body>
 </html>

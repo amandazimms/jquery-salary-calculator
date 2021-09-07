@@ -6,8 +6,6 @@ function onReady(){
   console.log('jq');
 } 
 
-// <!-- ## Assignment
-
 
 // A 'Submit' button should collect the form information, store the information to calculate monthly costs, append information
 // // to the DOM and clear the input fields. Using the stored information, calculate monthly costs and append this to the to DOM.
@@ -25,13 +23,11 @@ function submit() {
 
 }
 
-function displayInputValueInOutput(inputField, _outputArea) {
-  let outputArea = $(_outputArea);
-  let inputValue = $(inputField).val();
+function displayInputValueInOutput(inputField, outputArea) {
+  //function that displays the value of an input field in an output area
 
-  outputArea.empty();
-  outputArea.append(inputValue);
-
+  //.html seems to accomplish .empty and .append in one step. 
+  $(outputArea).html( $(inputField).val() ); 
   $(inputField).val('');
 }
 
