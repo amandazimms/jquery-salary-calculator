@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Salary Calculator</title>
   <link rel="stylesheet" href="style.css">
   <script src="jquery-3.6.0.min.js"></script>
   <script src="client.js"></script>
 </head>
 <body>
-  <!-- todo more specific title-->
-  <p> Employee Info </p> 
+  <h1>Salary Calculator</h1>
+  <h2>Add Employee</h2> 
 
     <input type="text" id="employee-first-name" placeholder="First Name">
     <input type="text" id="employee-last-name" placeholder="Last Name">
@@ -19,18 +19,19 @@
     <input type="text" id="employee-title" placeholder="Job Title">
     <input type="number" id="employee-salary" placeholder="Annual Salary">
 
-    <!-- todo change label to more appropriate thing -->
-    <button type="button" id="submit-button">GO!</button>
+    <button type="button" id="submit-button">Submit</button>
     
-    
+  <h2>Employees</h2>
 
     <div class="employees-container">
-      <!-- <div class="employee-data"><p id="first-name-output">first name</p></div>
-      <div class="employee-data"><p id="last-name-output">last name</p></div>
-      <div class="employee-data"><p id="id-output">employee id</p></div>
-      <div class="employee-data"><p id="job-title-output">job title</p></div>
-      <div class="employee-data"><p id="salary-output">annual salary</p></div>
-      <div class="employee-data"><button id="delete-button">delete</button></div> -->
+      <div class="employee-data"><p id="first-name-title">First Name</p></div>
+      <div class="employee-data"><p id="last-name-title">Last Name</p></div>
+      <div class="employee-data"><p id="id-title">ID</p></div>
+      <div class="employee-data"><p id="job-title-title">Title</p></div>
+      <div class="employee-data"><p id="salary-title">Annual Salary</p></div>
+      <div class="employee-data"><p id="delete-title"></p></div>
     </div>
+
+  <h2 id="total-salaries">Total Monthly: </h2>
 </body>
 </html>

@@ -6,6 +6,7 @@ function onReady(){
   console.log('jq');
 } 
 
+let salaries = [];
 
 // A 'Submit' button should collect the form information, store the information to calculate monthly costs, append information
 // // to the DOM and clear the input fields. Using the stored information, calculate monthly costs and append this to the to DOM.
@@ -15,7 +16,7 @@ function onReady(){
 function submit() {
   console.log('submit');
   
-  displayNewEmployee();
+  addNewEmployee();
 
   // displayInputValueInOutput('#employee-first-name', '#first-name-output');
   // displayInputValueInOutput('#employee-last-name', '#last-name-output');
@@ -25,7 +26,7 @@ function submit() {
 
 }
 
-function displayNewEmployee(){
+function addNewEmployee(){
   //create another row
   let firstName = $('#employee-first-name').val();
   let lastName = $('#employee-last-name').val();
@@ -43,8 +44,25 @@ function displayNewEmployee(){
     `
   $('.employees-container').append(newRow);
 
-  //fill the values with the right data
+  $('#employee-first-name').val('');
+  $('#employee-last-name').val('');
+  $('#employee-id').val('');
+  $('#employee-title').val('');
+  $('#employee-salary').val('');
 
+
+  //todo separation of concerns - different function?
+  //store salary and display total
+  salaries.push(salary);
+
+  let salariesSum = 0;
+  for (const salary of salaries)
+    salariesSum+= Number(salary);
+
+
+  let totalDisplay = $('#total-salaries');
+
+  $(totalDisplay).html('Total Monthly: ' + salariesSum);
 }
 
 function displayInputValueInOutput(inputField, outputArea) {
