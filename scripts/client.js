@@ -27,10 +27,9 @@ function addNewEmployee(){
       salary: salaryVal
     }
     
-    //add to array of employees
-    employees.push(newEmployee);
-    console.log(employees);
-    
+    employees.push(newEmployee); //add to array of employees
+    console.log(employees); //for our information - shows that employee is added in 'backend'
+     
     //convert salary to dollar format
     salaryVal = (Number(salaryVal)).toLocaleString('en-US', {
       style: 'currency',
@@ -110,7 +109,7 @@ function deleteEmployee(id){
       employees.splice(i, 1);
     }
   }
-  console.log(employees);
+  console.log(employees); //for our information - shows that employee is deleted in 'backend'
   
   //now that we have updated data, recalculate and display total
   displayMonthlyTotalSalary();
