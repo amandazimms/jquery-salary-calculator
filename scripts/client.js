@@ -1,6 +1,7 @@
 $( document ).ready( onReady );
 
 let originalBGforTotalDisplay; //I don't like that this is global, but couldn't think of an alternative for now
+let employees = []; 
 
 function onReady(){
   $( '#submit-button' ).on( 'click', addNewEmployee );
@@ -9,28 +10,41 @@ function onReady(){
 } 
 
 function addNewEmployee(){
-  let firstName = $('#employee-first-name').val();
-  let lastName = $('#employee-last-name').val();
-  let id = $('#employee-id').val().toString(); //note: employee ID will also be used as the class for each div (for this employee). Meta!
-  let title = $('#employee-title').val();
-  let salary = $('#employee-salary').val();
+  let firstNameInVal = $('#employee-first-name').val();
+  let lastNameVal = $('#employee-last-name').val();
+  let idVal = $('#employee-id').val().toString(); //note: employee ID will also be used as the class for each div (for this employee). Meta!
+  let titleVal = $('#employee-title').val();
+  let salaryVal = $('#employee-salary').val();
 
-  //convert salary to dollar format, stored in new var so we also keep salary as a plain number to use later
-  let salaryDisplay = (Number(salary)).toLocaleString('en-US', {
-    style: 'currency',
-    currency: 'USD', });
-
-  if (idChecker(id)) { //run the following only if the idChecker comes back good
+  if (idChecker(idVal)) { //run the following only if the idChecker comes back good
     
+    //declare new employee
+    let newEmployee = {
+      firstName: firstNameInVal,
+      lastName: lastNameVal,
+      id: idVal,
+      title: titleVal,
+      salary: salaryVal
+    }
+    
+    //add to array of employees
+    employees.push(newEmployee);
+    console.log(employees);
+    
+    //convert salary to dollar format
+    salaryVal = (Number(salaryVal)).toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD', });
+
     //todo : may be more readable and easier to store the whole new row in its own parent div, and tag that with class 'id'
     //then when deleting, can just remove that parent div. But I was finding this more difficult to do without messing up the css grid. 
     let newRow = `
-      <div class="${id} employee-data grid-child"><p>${firstName}</p></div>
-      <div class="${id} employee-data grid-child"><p>${lastName}</p></div>
-      <div class="${id} employee-data grid-child employee-id "><p>${id}</p></div>
-      <div class="${id} employee-data grid-child"><p>${title}</p></div>
-      <div class="${id} employee-data grid-child salary "><p>${salaryDisplay}</p></div> 
-      <div class="${id} employee-data grid-child"><button onclick="deleteEmployee(${id})">delete</button></div>
+      <div class="${idVal} employee-data grid-child"><p>${firstNameInVal}</p></div>
+      <div class="${idVal} employee-data grid-child"><p>${lastNameVal}</p></div>
+      <div class="${idVal} employee-data grid-child employee-id "><p>${idVal}</p></div>
+      <div class="${idVal} employee-data grid-child"><p>${titleVal}</p></div>
+      <div class="${idVal} employee-data grid-child salary "><p>${salaryVal}</p></div> 
+      <div class="${idVal} employee-data grid-child"><button onclick="deleteEmployee(${idVal})">delete</button></div>
       `;
 
     $('.employees-container').append(newRow); //add the new row to the css grid container
@@ -44,61 +58,59 @@ function addNewEmployee(){
   } 
 }
 
-function idChecker(id){
-  let employeeIDs = [];  //make an array of all employee IDs, so we can check for duplicates
+function idChecker(id){ //makes sure a valid ID is entered
 
-  //for each element with the 'employee-id' class (all of the employees IDs)
-  $('.employee-id').each(function(){
-    employeeIDs.push( $(this).text()); //push 'this' (each of those elements) 's text value into the IDs array
-  });
-
+  for (const employee of employees){ //loop through array of employee objects
+    if (employee.id === id) { //if this id matches an existing id
+      alert("Invalid Employee ID: please make sure ID is unique to this employee");
+      return false;
+    }
+  }
   if ( id.toString()[0] === "0" ) { //if ID begins with zero
     alert("Invalid Employee ID: please make sure ID does not begin with zero.");
     return false;
-  } else if ( employeeIDs.includes(id) ) { //if ID matches another employee's ID
-    alert("Invalid Employee ID: please make sure ID is unique to this employee");
-    return false;
-  } else if ( !Number(id) || id.toString().length === 0) { //if it's fails this, it's NaN (contains letters), or isn't entered (these two have overlap, so were combined)
+  } 
+  else if ( !Number(id) || id.toString().length === 0) { //if it's fails this, it's NaN (contains letters), or isn't entered (these two have overlap, so were combined)
     alert("Invalid Employee ID: please make sure you entered an ID, and that it only contains numbers.")
     return false;
-  } else
+  } 
+  else
     return true;
 }
 
 
 function displayMonthlyTotalSalary(){
-  //todo not sure if updating the entire salaries array this often may be an issue with performance
-  // in a real scenario; in that case a global salaries[] variable might be better
-  let salaries = [];
   let salariesSum = 0;
 
-  //for each element with the 'salary' class (all of the employees salaries)
-  $('.salary').each(function(){
-    //since we previously converted salary to a nice currency number for display, now need to convert it back to a plain number
-    let salaryAsNumber = Number($(this).text().replace(/[^0-9.-]+/g,""));
-
-    salaries.push( salaryAsNumber);//push 'this' (each of those elements) 's text value into the salaries array
-    salariesSum+= salaryAsNumber;//add to sum
-  });
-
-  let salariesMonthly = salariesSum/12; //convert from yearly to monthly
-
-  //convert salary sum to dollar format, stored in new var so we also keep salariesMonthly as a plain number to use later
-  let salariesMonthlyDisplay = (salariesMonthly).toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD', });
-
-  $('#total-salaries').html('Total Monthly: ' + salariesMonthlyDisplay); //display on DOM
+  for (const employee of employees){ //loop through array of employee objects
+    salariesSum+= Number(employee.salary); //get the employee salary and add to sum
+  }
+  let salariesMonthly = salariesSum / 12; //convert from yearly to monthly
 
   if (salariesMonthly > 20000)  //If the total monthly cost exceeds $20,000, add a red background color to the total monthly cost.
     $('#total-salaries').css('background-color', 'rgb(177, 65, 71)');
   else //for when the too-expensive people get deleted: change it back to not-red
     $('#total-salaries').css('background-color', originalBGforTotalDisplay);
+
+  //convert salary sum to dollar format, stored in new var so we also keep salariesMonthly as a plain number to use later
+  salariesMonthly = (salariesMonthly).toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD', });
+
+  $('#total-salaries').html('Total Monthly: ' + salariesMonthly); //display on DOM
 }
 
 function deleteEmployee(id){  
-  //use . for class selector; for multiple classes, '.classA.classB'
+  //remove employee from DOM: use . for class selector; for multiple classes, '.classA.classB'
   $('.'+id).remove();
+
+  //remove employee object from array of employees
+  for (let i = 0; i< employees.length; i++){ //loop through array of employee objects
+    if (Number(employees[i].id) === id) {
+      employees.splice(i, 1);
+    }
+  }
+  console.log(employees);
   
   //now that we have updated data, recalculate and display total
   displayMonthlyTotalSalary();
