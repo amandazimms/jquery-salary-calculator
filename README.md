@@ -11,20 +11,19 @@ Employees are stored as objects inside an array, which isn't strictly necessary 
 
 
 ## Screenshot
-
-![Screenshot](salary-calc-screenshot)
+![Screenshot](salary-calc-screenshot.png)
 
 
 ## Usage
 
-* Fill in input fields: names, ID, title, and salary
+* Fill in input fields: first and last name, ID, title, and salary
 * Click Submit
   * Employee is now saved within the app, and their info is displayed on the grid below
   * Monthly total is now calculated
 * Repeat first two steps until all desired employees are entered
 * If you need to remove an employee, click the delete button next to their salary
   * Monthly total and grid are refreshed
-* If total monthly cost exceeds $20,000, it will display in red
+* If total monthly cost exceeds $20,000, it will display with a red background
 
 
 ## Built With
